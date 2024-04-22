@@ -1,0 +1,48 @@
+{% include 'head2.html' %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="pay1" method="post">
+                <div class="card p-3 mt-3">
+                   <div class="text-center h3">Pay: ${{total_price}}</div>
+                   <div class="mt-3">
+                        <label for="card_type" class="form-label">Card Type</label>
+                        <select id="card_type" name="card_type" class="form-control" required>
+                            <option value="">Choose Card Type</option>
+                            <option value="credit">Credit</option>
+                            <option value="debit">Debit</option>
+                        </select>
+                   </div>
+                   <div class="mt-3">
+                       <label for="card_number" class="form-label">Card Number</label>
+                       <input type="text" id="card_number" name="card_number" class="form-control" placeholder="Enter Card Number" required>
+                   </div>
+                   <div class="mt-3">
+                       <label for="name_on_card" class="form-label">Name On Card</label>
+                       <input type="text" id="name_on_card" name="name_on_card" class="form-control" placeholder="Enter Name On Card" required>
+                   </div>
+                   <div class="mt-3">
+                       <label for="card_expire_date" class="form-label">Card Expire Date</label>
+                       <input type="text" id="card_expire_date" name="card_expire_date" class="form-control" placeholder="Enter Card Expire Date" required>
+                   </div>
+                    <div class="mt-3">
+                       <label for="card_billing_address" class="form-label">Card Billing Address</label>
+                        <textarea id="card_billing_address" name="card_billing_address" class="form-control" placeholder="Enter Card Billing Address" required></textarea>
+                   </div>
+                    <div class="mt-3">
+                        <label for="card_billing_postal_code" class="form-label">Card Billing Postal Code</label>
+                        <input type="number" id="card_billing_postal_code" name="card_billing_postal_code" class="form-control" placeholder="Enter Card Billing Postal Code" required>
+                    </div>
+                    <div class="mt-3">
+                        <input type="submit" value="Pay" class="btn btn-primary w-100">
+                    </div>
+                    <div>
+                        <input type="hidden" name="reservation_id" value="{{reservation_id}}">
+                        <input type="hidden" name="total_price" value="{{total_price}}">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

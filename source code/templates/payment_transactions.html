@@ -1,0 +1,30 @@
+{% include 'head2.html' %}
+<div class="container">
+    <div class="row">
+        <div class="col md-4"></div>
+        <div class="col md-4">
+            <div class="card p-3 mt-3">
+                <div class=" text-muted mt-3">Payment Date:</div>
+                <div><strong>{{payment_transaction['payment_date']}}</strong></div>
+                <div class="text-muted mt-3">Card Number:</div>
+                <div><strong>{{payment_transaction['card_number']}}</strong></div>
+                <div class="text-muted mt-3">Name On Card:</div>
+                <div><strong>{{payment_transaction['name_on_card']}}</strong></div>
+                <div class="text-muted mt-3">Card Expire Date:</div>
+                <div><strong>{{payment_transaction['card_expire_date']}}</strong></div>
+                <div class="text-muted mt-3">Card Billing Address:</div>
+                <div><strong>{{payment_transaction['card_billing_address']}}</strong></div>
+                <div class="text-muted mt-3">Card Billing Postal Code:</div>
+                <div><strong>{{payment_transaction['card_billing_postal_code']}}</strong></div>
+                <div class="text-muted mt-3">Total Amount Paid:</div>
+                <div><strong>$ {{payment_transaction['total_amount_paid']}}</strong></div>
+                <div class="text-muted mt-3">Payment Status:</div>
+                <div><strong>{{payment_transaction['payment_status']}}</strong></div>
+
+
+            </div>
+        </div>
+        <div class="col md-4"></div>
+
+    </div>
+</div>

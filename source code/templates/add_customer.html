@@ -1,0 +1,101 @@
+{% include 'head2.html' %}
+<script>
+    function validate(){
+        let password = document.getElementById("password").value
+        let confirm_password = document.getElementById("confirm_password").value
+        if(password!=confirm_password) {
+            alert("Password Should Match With the Confirm Password")
+            return false
+        }
+        return true
+    }
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card p-3 mt-3">
+                <form action="add_customer1" method="post" onsubmit="return validate()">
+                    <div class="row">
+                        <div class="text-center h3">Registration</div>
+                        <div class="col-md-6">
+                            <div>
+                                <label for="first_name" class="form-label">First Name</label>
+                                <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Enter First Name" required>
+                            </div>
+                            <div class="mt-3">
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Enter Last Name" required>
+                            </div>
+                            <div class="mt-3">
+                                <label for="username" class="form-label">User Name</label>
+                                <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" required>
+                            </div>
+                            <div class="mt-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
+                            </div>
+                            <div class="mt-3">
+                                <label for="confirm_password" class="form-label">Confirm Password</label>
+                                <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm Password" required>
+                            </div>
+                            <div class="mt-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email-Id" required>
+                            </div>
+                            <div class="mt-3">
+                                <label for="phone_no" class="form-label">Phone Number</label>
+                                <input type="number" id="phone_no" name="phone_no" class="form-control" placeholder="Enter Phone Number" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <label for="address1" class="form-label">Address1</label>
+                                <textarea name="address1" id="address1" class="form-control" placeholder="Enter Address" required></textarea>
+                            </div>
+                            <div class="mt-3">
+                                <label for="address2" class="form-label">Address2</label>
+                                <textarea name="address2" id="address2" class="form-control" placeholder="Enter Adress" required></textarea>
+                            </div>
+                            <div class="mt-3">
+                                <label for="state" class="form-label">State</label>
+                                <input type="text" id="state" name="state" class="form-control" placeholder="Enter State" required>
+                            </div>
+                            <div class="mt-3">
+                                <label for="country" class="form-label">Country</label>
+                                <input type="text" id="country" name="country" class="form-control" placeholder="Enter Country" required>
+                            </div>
+                            <div class="mt-3">
+                                <label for="zipcode" class="form-label">ZipCode</label>
+                                <input type="number" id="zipcode" name="zipcode" class="form-control" placeholder="Enter Zipcode" required>
+                            </div>
+                        </div>
+                         <div class="mt-3">
+                                <input type="submit" value="Register" class="btn btn-primary w-100">
+                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+            {% for customer in customers%}
+                <div class="col-md-6">
+                    <div class="card p-3 mt-3">
+                        <div class=""><strong>First Name: </strong>{{customer['first_name']}}</div>
+                        <div class="mt-3"><strong>Last Name: </strong>{{customer['last_name']}}</div>
+                        <div class="mt-3"><strong>Username: </strong>{{customer['username']}}</div>
+                        <div class="mt-3"><strong>Password: </strong>{{customer['password']}}</div>
+                        <div class="mt-3"><strong>Email: </strong>{{customer['email']}}</div>
+                        <div class="mt-3"><strong>Phone Number: </strong>{{customer['phone_no']}}</div>
+                        <div class="mt-3"><strong>Address1: </strong>{{customer['address1']}}</div>
+                        <div class="mt-3"><strong>Address2: </strong>{{customer['address2']}}</div>
+                        <div class="mt-3"><strong>State: </strong>{{customer['state']}}</div>
+                        <div class="mt-3"><strong>Country: </strong>{{customer['country']}}</div>
+                        <div class="mt-3"><strong>ZipCode: </strong>{{customer['zipcode']}}</div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

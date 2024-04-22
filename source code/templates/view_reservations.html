@@ -1,0 +1,133 @@
+{% include 'head2.html' %}
+<div class="container">
+    <div class="row">
+        {% for reservation in reservations%}
+        {% set room = get_room_by_room_id(reservation['room_id']) %}
+        {% set customer = get_customer_by_customer_id(reservation['customer_id'])%}
+            <div class="col-md-4">
+                <div class="card p-3 mt-3">
+                    <div class="text-center h3">Room Details</div>
+                          <div class="row">
+                              <div class="col-md-8">
+                                  <div class="mt-3"><img src="../static/pic/{{room['pic']}}/" width="200" height="150"></div>
+
+                              </div>
+
+                              <div class="col-md-4 mt-4">
+                                  <div class="h3">{{room['room_number']}}</div>
+                                  <div class="text-muted">${{room['rate']}} per day</div>
+                                  <div>
+                                      {% if reservation['payment_status']== 'Success' %}
+                                        <form action="payment_transactions" method="post">
+                                            <div class="mt-3">
+                                                <input type="hidden" name="reservation_id" value="{{reservation['_id']}}">
+                                                <input type="submit" value="Transaction" class="btn btn-primary w-100">
+                                            </div>
+                                        </form>
+                                      {% endif %}
+                                  </div>
+                                  <div>
+                                      <form action="pay" method="post">
+                                        {% if session['role'] == 'customer' %}
+                                            {% if reservation['payment_status']== 'Payment Pending' and reservation['reservation_status'] != 'Reservation Cancelled'%}
+                                               <div class="mt-3">
+                                                   <input type="hidden" name="total_price" value="{{reservation['total_price']}}">
+                                                   <input type="hidden" name="reservation_id" value="{{reservation['_id']}}">
+                                                   <input type="submit" value="Pay" class="btn btn-primary w-100">
+                                               </div>
+                                            {% endif%}
+                                        {% endif %}
+                                      </form>
+                                  </div>
+                                  <div>
+                                      <form action="collect_cash" method="post">
+                                        {% if session['role'] != 'customer' %}
+                                            {% if reservation['payment_status']== 'Payment Pending' and reservation['reservation_status'] != 'Reservation Cancelled' %}
+                                               <div class="mt-3">
+                                                   <input type="submit" value="Collect Cash" class="btn btn-primary w-100">
+                                                   <input type="hidden" value="{{reservation['_id']}}" name="reservation_id">
+                                               </div>
+                                            {% endif%}
+                                        {% endif %}
+                                      </form>
+                                  </div>
+                                  <div>
+                                      <form action="up_view_reservations" method="post">
+                                        {% if session['role'] == 'customer'%}
+                                            {% if reservation['reservation_status']== 'Reserved' %}
+                                                <div class="mt-3">
+                                                    <input type="hidden" name="reservation_id" value="{{reservation['_id']}}">
+                                                    <input type="submit" value="Cancel" class="btn btn-danger w-100">
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                      </form>
+                                  </div>
+                                  <div>
+                                      <form action="staff_view_reservations" method="post">
+                                          {% if session['role'] != 'customer'%}
+                                             {% if reservation['reservation_status']== 'Reserved' and reservation['payment_status'] == 'Success' or reservation['reservation_status']== 'Reserved' and reservation['payment_status'] == 'Cash Collected' %}
+                                                <input type="hidden" name="reservation_id" value="{{reservation['_id']}}">
+                                                <input type="submit" value="Check In" class="btn btn-primary w-100">
+                                             {% endif %}
+                                          {% endif %}
+                                      </form>
+                                  </div>
+
+                              </div>
+                          </div>
+                    {% if session['role'] != 'customer'%}
+                          {% if reservation['reservation_status']== 'Checked In' %}
+                          <form action="check_out" method="post">
+                              <input type="hidden" name="reservation_id" value="{{reservation['_id']}}">
+                              <div class="row">
+                                  <div class="col-md-8">
+                                      <label for="additional_charge" class="form-label"></label>
+                                      <input type="text" id="additional_charge" name="additional_charge" class="form-control" placeholder="Enter Additional Charge">
+                                  </div>
+                                  <div class="col-md-4 mt-2">
+                                      <input type="submit" value="Check out" class="btn btn-primary w-100">
+                                  </div>
+                              </div>
+                          </form>
+                          {% endif %}
+                      {% endif %}
+                    <div class="mt-3">
+                        <div class="text-muted" style="font-size:80%;">Expected Check-In Date</div>
+                        <div><strong>{{reservation['expected_check_in_date']}}</strong></div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="text-muted" style="font-size:80%;">Expected Check-Out Date:</div>
+                        <div><strong>{{reservation['expected_check_out_date']}}</strong></div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="text-muted" style="font-size:80%;">Total Price:</div>
+                        <div><strong>${{reservation['total_price']}}</strong></div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="text-muted" style="font-size:80%;">Name:</div>
+                        <div><strong>{{customer['first_name']}} {{customer['last_name']}}</strong></div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="text-muted" style="font-size:80%;">Phone Number:</div>
+                        <div><strong>{{customer['phone_no']}}</strong></div>
+                    </div>
+                    {% if 'additional_charge' in reservation %}
+                        <div class="mt-3">
+                            <div class="text-muted" style="font-size:80%;">Additional Charges:</div>
+                            <div><strong>${{reservation['additional_charge']}}</strong></div>
+                        </div>
+                    {% endif %}
+                    <div class="mt-3">
+                        <div class="text-muted" style="font-size:80%;">Reservation Status:</div>
+                        <div><strong>{{reservation['reservation_status']}}</strong></div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="text-muted" style="font-size:80%;">Payment Status:</div>
+                        <div><strong>{{reservation['payment_status']}}</strong></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

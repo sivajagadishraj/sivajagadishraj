@@ -1,0 +1,90 @@
+<style>
+body{
+    background-image : url(https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:200px;
+    }
+</style>
+{% include 'links.html' %}
+{% if session['role'] == 'admin'%}
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="admin_home">Admin Home</a>
+          </li>
+         <li class="nav-item">
+            <a class="nav-link text-white" href="add_staff">Add Staff</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="add_customer">Add Customer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="add_room_type">Add RoomType</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="add_rooms">Add Rooms</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link text-white" href="view_reservations?type=upcoming">Upcoming</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="view_reservations?type=current">Current</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="view_reservations?type=history">History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="admin_logout">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+{% endif %}
+{% if session['role'] == 'staff'%}
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="staff_home">Staff Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="add_rooms">Rooms</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="view_reservations?type=upcoming">Upcoming</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="view_reservations?type=current">Current</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="view_reservations?type=history">History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="staff_logout">LogOut</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+{% endif %}
+{% if session['role'] == 'customer'%}
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="customer_home">Customer Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="do_reservation">Reserve Room</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="view_reservations">Reservations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="customer_logout">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+{% endif %}
